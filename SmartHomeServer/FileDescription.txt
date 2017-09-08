@@ -1,0 +1,29 @@
+SmartHome 服务端 V1.0 Editing
+文件部署说明 V2.0
+
+文件列表：
+SmartHomeServer-------------#服务端文件夹
+	|-SmartHome-------------#主程序目录
+	|	|-.idea-------------#PyCharm文件(可删除)
+	|	|	|-略
+	|	|-pcduino-----------#库文件
+	|	|	|-略
+	|	|-*.py--------------#程序各模块
+	|	|-SmartHome.py------#主程序
+	|   |-config.txt--------#配置文件
+	|-AutoRunSmartHome.py---#开机控制台自启文件(详见[开机自启]部分)
+	|-AutoRunPython3.py-----#以python3运行文件夹下的所有python程序
+	|-FileDescription.txt---#文件部署说明
+	|-WorkDescription.txt---#工作方式说明
+	
+文件修改：
+①如果需要控制台启动 需要将AutoRunSmartHome.py中第二行路径改为lxterminal -e python3 <主程序的绝对路径>
+示例：lxterminal -e python3 /home/ubuntu/SmartHomeServer/SmartHome/SmartHome.py
+②将Security.py中第二行路径改为文件夹内config.txt的绝对路径
+示例：/home/ubuntu/SmartHomeServer/SmartHome/config.txt
+
+开机自启：
+一般只需要将主程序(SmartHome.py)添加进Linux自启动文件内
+示例：python3 /home/ubuntu/SmartHomeServer/SmartHome/SmartHome.py
+如果需要控制台则是要在自启动文件内添加 用终端运行SmartHome.py
+示例：lxterminal -e python3 /home/ubuntu/SmartHomeServer/SmartHome/SmartHome.py

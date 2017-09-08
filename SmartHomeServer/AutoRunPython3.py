@@ -1,14 +1,16 @@
 #-*- coding:utf-8 -*-
 
 """
+自动启动程序
+
 源程序已修改
 使用python3启动程序
-修改时间：2017-5-7 13:57
+修改时间：2017-09-08 19:00
 By wxx
 """
 
 import os
-Auto_dir = '/home/ubuntu/wxx/AutoRunPython3'
+Auto_dir = '/home/ubuntu/wxx/SmartHome'
 
 #AutoStart_List_File = open(Auto_folder +'astlist')
 #AutoStart_List= AutoStart_List_File.read()

@@ -1,0 +1,9 @@
+SmartHome 服务端 V1.0 Editing
+工作方式说明 V1.0
+
+硬件信息：
+大灯 2
+风扇电机 INB-4 INA-5
+舵机 6
+白灯 7
+RGB灯 R-9 B-10 G-11

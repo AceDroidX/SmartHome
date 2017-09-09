@@ -1,5 +1,8 @@
+import time
+
 import pcduino.gpio
 import pcduino.pwm
+
 # import threading
 
 doorpwmlevel = {'lock': 1, 'unlock': 100}
@@ -9,6 +12,7 @@ lockstate = 'lock'  # lock锁 unlock没锁
 
 
 def door_switch(pindoor):
+    global lockstate
     if lockstate == 'lock':
         door_open(pindoor)
     elif lockstate == 'unlock':
@@ -19,23 +23,35 @@ def door_switch(pindoor):
 
 
 def door_open(pindoor):
+    global lockstate
     lockstate = 'unlock'
     pcduino.pwm_set(pindoor, doorpwmlevel[lockstate], doorpwmfreq)
     pcduino.pwm_enable(pindoor)
-    pass
+    time.sleep(1)
+    pcduino.pwm_disable(pindoor)
+    print('door on')
 
 
 def door_close(pindoor):
+    global lockstate
     lockstate = 'lock'
     pcduino.pwm_set(pindoor, doorpwmlevel[lockstate], doorpwmfreq)
     pcduino.pwm_enable(pindoor)
-    pass
+    time.sleep(1)
+    pcduino.pwm_disable(pindoor)
+    print('door off')
 
-def door_test1(pindoor,level,freq):
+
+def door_test1(pindoor, level, freq):
     pcduino.pwm_set(pindoor, level, freq)
     pcduino.pwm_enable(pindoor)
+    pcduino.pwm_disable(pindoor)
     pass
 
+
+if __name__ == '__main__':
+    while True:
+        door_switch(6)
 """
 
 

@@ -20,3 +20,11 @@ def setkey(key):
         if config[1] != 'alreadysetkey':
             with open(file, 'w') as f:
                 f.write('配置文件 请勿删除\nalreadysetkey\nkeyis ' + key)
+
+
+def isverify():
+    return True
+
+
+def verify(key):
+    return None

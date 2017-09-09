@@ -18,17 +18,20 @@ def tcplink(sock, addr):
         data = sock.recv(1024)
         time.sleep(1)
         echo = data.decode('utf-8')
-        print(addr.__str__()+'>'+echo)
-        if echo.split(' ')[0] == 'iskey':
-            sock.send(Security.iskey(echo.split(' ')[1]).encode('utf-8'))
-        elif echo.split(' ')[0] == 'setkey':
-            sock.send(Security.setkey(echo.split(' ')[1]).encode('utf-8'))
-        elif echo.split(' ')[0] == 'switch':
-            if Security.iskey(echo.split(' ')[1]) == 'keycorrect':
+        netcmd = echo.split(' ')
+        print(addr.__str__() + '>' + echo)
+        if netcmd[0] == 'verify':
+            Security.verify(netcmd[1])
+        elif netcmd[0] == 'setkey':
+            if Security.isverify():
+                sock.send(Security.setkey(echo.split(' ')[1]).encode('utf-8'))
+        elif netcmd[0] == 'state':
+            if Security.isverify():
+                pass
+        elif netcmd[0] == 'switch':
+            if Security.isverify():
                 Door.door_switch(SmartHome.pinList['door'])
                 sock.send(Door.lockstate.encode('utf-8'))
-            else:
-                sock.send(Security.iskey(echo.split(' ')[1]).encode('utf-8'))
         elif echo == 'exit':
             break
     sock.close()

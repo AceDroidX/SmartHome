@@ -2,6 +2,9 @@
 # -*- coding: UTF-8 -*-
 # noinspection PyUnresolvedReferences
 import sys
+import threading
+
+import os
 
 import Door
 import TCPSocket
@@ -16,11 +19,10 @@ cmd = ''
 # functions
 def stop():
     print("退出程序中")
-    sys.exit()
+    os._exit(0)
 
 
 def about():
-
     print('https://wangxuxin.github.io')
     print("By wxx")
 
@@ -31,6 +33,7 @@ def pinSet():
 
 def doortest1():
     Door.door_test1(input('pin'), input('level'), input('freq'))
+
 
 # -----------------------------
 
@@ -59,9 +62,9 @@ if __name__ == '__main__':
             doortest1()
         elif cmd == 'doorswitch':
             Door.door_switch(pinList['door'])
+        elif cmd == '':
+            pass
         else:
             print("未知命令 输入help查看帮助")
         cmd = ""
         # --------------------------------------
-
-

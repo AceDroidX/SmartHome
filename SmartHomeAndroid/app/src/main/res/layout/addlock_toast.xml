@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:gravity="center" android:baselineAligned="false">
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="60dp"
+            android:layout_marginLeft="60dp">
+        <TextView
+                android:text="IP地址"
+                android:layout_marginRight="10dp"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp" android:id="@+id/ipEdit" android:hint="ip地址"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginLeft="60dp">
+        <TextView
+                android:text="密    码"
+                android:layout_marginRight="10dp"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        <EditText
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp" android:id="@+id/passwordEdit" android:hint="空值进入设置模式"/>
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginLeft="60dp">
+        <Button
+                android:text="@string/apply"
+                android:layout_width="0dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" android:id="@+id/addButton"/>
+        <Button
+                android:text="@string/about_button"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content" android:id="@+id/aboutButton"/>
+    </LinearLayout>
+</LinearLayout>

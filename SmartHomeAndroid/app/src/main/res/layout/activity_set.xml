@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_centerVertical="true" android:layout_centerHorizontal="true" android:id="@+id/keysetEdit"
+            android:hint="@string/setkey"/>
+    <Button
+            android:text="@string/apply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_below="@+id/keysetEdit"
+            android:layout_centerHorizontal="true" android:id="@+id/keysetButton"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_above="@+id/keysetEdit"
+            android:layout_centerHorizontal="true" android:id="@+id/textView3" android:textSize="18sp"
+            android:text="@string/setkeyinfo"/>
+    <TextView
+            android:text="@string/setkey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_above="@+id/textView3"
+            android:layout_centerHorizontal="true" android:layout_marginBottom="8dp" android:id="@+id/textView5"
+            android:textSize="30sp"/>
+</RelativeLayout>

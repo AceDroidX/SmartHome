@@ -10,7 +10,7 @@ import Door
 import TCPSocket
 
 isdebug = True
-pinList = {'bigLight': 2, 'fanB': 4, 'fanA': 5, 'door': 6, 'whiteLight': 7,
+pinList = {'bigLight': 3, 'fanB': 5, 'door': 6, 'whiteLight': 7,
            'RGBLightR': 9, 'RGBLightB': 10, 'RGBLightG': 11}
 
 cmd = ''

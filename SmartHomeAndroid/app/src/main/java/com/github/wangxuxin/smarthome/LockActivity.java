@@ -13,7 +13,7 @@ import android.widget.Toast;
 public class LockActivity extends AppCompatActivity {
     String lockip;
     String lockpw;
-    String number="";
+    String number = "";
     //static boolean canSendSocket=false;
 
     @Override
@@ -28,11 +28,11 @@ public class LockActivity extends AppCompatActivity {
         final String type = intent.getStringExtra("type");
 
         SharedPreferences locklistSP = getSharedPreferences("lock", 0);
-        lockip = locklistSP.getString("ip",null);
+        lockip = locklistSP.getString("ip", null);
 
-        if("1".equals(type)){
+        if ("1".equals(type)) {
             setContentView(R.layout.activity_set);
-            Button keysetButton =(Button)findViewById(R.id.keysetButton);
+            Button keysetButton = (Button) findViewById(R.id.keysetButton);
             keysetButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -79,18 +79,16 @@ public class LockActivity extends AppCompatActivity {
 
 
                     final TCPSocket keysetSocket = new TCPSocket();
-                    keysetSocket.socket(lockip, 23333, "setkey "+keysetEdit.getText().toString());
+                    keysetSocket.socket(lockip, 23333);
                     new Handler().postDelayed(new Runnable() {
                         public void run() {
-                                if("alreadysetkey".equals(keysetSocket.echo)){
+                            if ("alreadysetkey".equals(keysetSocket.echo)) {
                                 Toast.makeText(getApplicationContext(), "已经设置",
                                         Toast.LENGTH_LONG).show();
-                            }
-                            else if("setkeyerror".equals(keysetSocket.echo)||"thekeycantbe0".equals(keysetSocket.echo)){
+                            } else if ("setkeyerror".equals(keysetSocket.echo) || "thekeycantbe0".equals(keysetSocket.echo)) {
                                 Toast.makeText(getApplicationContext(), "设置错误",
                                         Toast.LENGTH_LONG).show();
-                            }
-                            else if("setkeysuccess".equals(keysetSocket.echo)){
+                            } else if ("setkeysuccess".equals(keysetSocket.echo)) {
                                 Toast.makeText(getApplicationContext(), "设置成功",
                                         Toast.LENGTH_LONG).show();
                                 //1、打开Preferences，名称为setting，如果存在则打开它，否则创建新的Preferences
@@ -103,8 +101,7 @@ public class LockActivity extends AppCompatActivity {
                                 editor.apply();
 
                                 setContentView(R.layout.activity_lock);
-                            }
-                            else{
+                            } else {
                                 Toast.makeText(getApplicationContext(), "连接超时",
                                         Toast.LENGTH_LONG).show();
                             }
@@ -114,10 +111,10 @@ public class LockActivity extends AppCompatActivity {
             });
         }
 
-        lockpw = locklistSP.getString("password",null);
+        lockpw = locklistSP.getString("password", null);
     }
 
-    public void switchButton(View v){
+    public void switchButton(View v) {
         /*
         if(!canSendSocket){
             Toast.makeText(getApplicationContext(), "操作过于频繁，请稍后再试",
@@ -127,31 +124,27 @@ public class LockActivity extends AppCompatActivity {
         canSendSocket=false;
         */
         final TCPSocket lockSocket = new TCPSocket();
-        lockSocket.socket(lockip,23333,"switch "+lockpw);
-        new Handler().postDelayed(new Runnable(){
+        lockSocket.socket(lockip, 23333);
+        lockSocket.send("switch");
+        new Handler().postDelayed(new Runnable() {
             public void run() {
                 //execute the task
-                if("notInitialize".equals(lockSocket.echo)){
+                if ("notInitialize".equals(lockSocket.echo)) {
                     Toast.makeText(getApplicationContext(), "设备未初始化",
                             Toast.LENGTH_LONG).show();
-                }
-                else if("lock".equals(lockSocket.echo)){
+                } else if ("lock".equals(lockSocket.echo)) {
                     Toast.makeText(getApplicationContext(), "已锁住",
                             Toast.LENGTH_LONG).show();
-                }
-                else if("unlock".equals(lockSocket.echo)){
+                } else if ("unlock".equals(lockSocket.echo)) {
                     Toast.makeText(getApplicationContext(), "已开启",
                             Toast.LENGTH_LONG).show();
-                }
-                else if("keywrong".equals(lockSocket.echo)){
+                } else if ("keywrong".equals(lockSocket.echo)) {
                     Toast.makeText(getApplicationContext(), "密码错误",
                             Toast.LENGTH_LONG).show();
-                }
-                else if("unknown".equals(lockSocket.echo)){
+                } else if ("unknown".equals(lockSocket.echo)) {
                     Toast.makeText(getApplicationContext(), "连接超时",
                             Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     Toast.makeText(getApplicationContext(), "未知错误",
                             Toast.LENGTH_SHORT).show();
                 }
@@ -159,7 +152,7 @@ public class LockActivity extends AppCompatActivity {
         }, 500);
     }
 
-    public void resetButton(View v){
+    public void resetButton(View v) {
         /*
         if(!canSendSocket){
             Toast.makeText(getApplicationContext(), "操作过于频繁，请稍后再试",
@@ -169,27 +162,24 @@ public class LockActivity extends AppCompatActivity {
         canSendSocket=false;
         */
         final TCPSocket lockSocket = new TCPSocket();
-        lockSocket.socket(lockip,23333,"reset "+lockpw);
-        new Handler().postDelayed(new Runnable(){
+        lockSocket.socket(lockip, 23333);
+        lockSocket.send("reset");
+        new Handler().postDelayed(new Runnable() {
             public void run() {
                 //execute the task
-                if("notInitialize".equals(lockSocket.echo)){
+                if ("notInitialize".equals(lockSocket.echo)) {
                     Toast.makeText(getApplicationContext(), "设备未初始化",
                             Toast.LENGTH_LONG).show();
-                }
-                else if("resetsuccess".equals(lockSocket.echo)){
+                } else if ("resetsuccess".equals(lockSocket.echo)) {
                     Toast.makeText(getApplicationContext(), "重置密码成功",
                             Toast.LENGTH_LONG).show();
-                }
-                else if("keywrong".equals(lockSocket.echo)){
+                } else if ("keywrong".equals(lockSocket.echo)) {
                     Toast.makeText(getApplicationContext(), "密码错误",
                             Toast.LENGTH_LONG).show();
-                }
-                else if("unknown".equals(lockSocket.echo)){
+                } else if ("unknown".equals(lockSocket.echo)) {
                     Toast.makeText(getApplicationContext(), "连接超时",
                             Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     Toast.makeText(getApplicationContext(), "未知错误",
                             Toast.LENGTH_SHORT).show();
                 }

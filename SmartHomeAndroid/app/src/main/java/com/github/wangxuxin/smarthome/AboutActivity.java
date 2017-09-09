@@ -19,17 +19,17 @@ public class AboutActivity extends AppCompatActivity {
         //ActionBar actionBar = getActionBar();
         //actionBar.setDisplayHomeAsUpEnabled(true);
 
-        TextView versionText=(TextView)findViewById(R.id.textView_version);
+        TextView versionText = (TextView) findViewById(R.id.textView_version);
         try {
-            versionText.setText("V"+getVersionName());
+            versionText.setText("V" + getVersionName());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         TextView copyrightText = (TextView) findViewById(R.id.textView_copyright);
-        if(!copyrightText.getText().equals("By wxx")){
+        if (!copyrightText.getText().equals("By wxx")) {
             copyrightText.setText("By wxx");
-            Log.d("wxxDebugAbout","原程序已被修改！！！！By wxx");
+            Log.d("wxxDebugAbout", "原程序已被修改！！！！By wxx");
         }
     }
 
@@ -50,8 +50,8 @@ public class AboutActivity extends AppCompatActivity {
         // 获取packagemanager的实例
         PackageManager packageManager = getPackageManager();
         // getPackageName()是你当前类的包名，0代表是获取版本信息
-        PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(),0);
-        Log.d("wxxDebugAbout",packInfo.versionName);
+        PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(), 0);
+        Log.d("wxxDebugAbout", packInfo.versionName);
         return packInfo.versionName;
     }
 }

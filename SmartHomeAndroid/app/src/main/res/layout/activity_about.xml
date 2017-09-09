@@ -12,7 +12,7 @@
             android:id="@+id/textView_copyright" android:layout_below="@+id/textView_version"
             android:layout_centerHorizontal="true"/>
     <TextView
-            android:text="https://github.com/wangxuxin/WIFISmartLock"
+            android:text="https://github.com/wangxuxin/SmartHome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView2" android:layout_below="@+id/textView_copyright"

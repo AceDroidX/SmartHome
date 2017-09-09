@@ -1,3 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SmartHome</string>
+    <string name="app_name">智能家居锁</string>
+    <string name="locklist">智能家居锁列表</string>
+    <string name="addLock">添加智能锁</string>
+    <string name="nolock">没有智能锁</string>
+    <string name="negative_button">取消</string>
+    <string name="postive_button">添加</string>
+    <string name="about_button">关于</string>
+    <string name="switchButton">开关锁</string>
+    <string name="reset_button">重置密码</string>
+    <string name="setkey">设置密码</string>
+    <string name="apply">确定</string>
+    <string name="setkeyinfo">填10位整数</string>
 </resources>

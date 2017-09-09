@@ -5,8 +5,8 @@ import pcduino.pwm
 
 # import threading
 
-doorpwmlevel = {'lock': 1, 'unlock': 100}
-doorpwmfreq = 520
+doorpwmlevel = {'lock': 25.5, 'unlock': 19.125}
+doorpwmfreq = 50
 
 lockstate = 'lock'  # lock锁 unlock没锁
 

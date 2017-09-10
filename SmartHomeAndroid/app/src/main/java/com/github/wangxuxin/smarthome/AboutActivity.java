@@ -1,10 +1,13 @@
 package com.github.wangxuxin.smarthome;
 
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 /**
@@ -19,18 +22,29 @@ public class AboutActivity extends AppCompatActivity {
         //ActionBar actionBar = getActionBar();
         //actionBar.setDisplayHomeAsUpEnabled(true);
 
-        TextView versionText = (TextView) findViewById(R.id.textView_version);
+        TextView versionText=(TextView)findViewById(R.id.textView_version);
         try {
-            versionText.setText("V" + getVersionName());
+            versionText.setText("V"+getVersionName());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         TextView copyrightText = (TextView) findViewById(R.id.textView_copyright);
-        if (!copyrightText.getText().equals("By wxx")) {
+        if(!copyrightText.getText().equals("By wxx")){
             copyrightText.setText("By wxx");
-            Log.d("wxxDebugAbout", "原程序已被修改！！！！By wxx");
+            Log.d("wxxDebugAbout","原程序已被修改！！！！By wxx");
         }
+
+        TextView websiteText = (TextView) findViewById(R.id.textView_website);
+        websiteText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "https://wangxuxin.github.io"; // web address
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
     }
 
     /*
@@ -50,8 +64,8 @@ public class AboutActivity extends AppCompatActivity {
         // 获取packagemanager的实例
         PackageManager packageManager = getPackageManager();
         // getPackageName()是你当前类的包名，0代表是获取版本信息
-        PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(), 0);
-        Log.d("wxxDebugAbout", packInfo.versionName);
+        PackageInfo packInfo = packageManager.getPackageInfo(getPackageName(),0);
+        Log.d("wxxDebugAbout",packInfo.versionName);
         return packInfo.versionName;
     }
 }

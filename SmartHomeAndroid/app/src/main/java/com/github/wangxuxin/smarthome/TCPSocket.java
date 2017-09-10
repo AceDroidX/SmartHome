@@ -12,13 +12,13 @@ import java.net.Socket;
  * Created by a1274 on 2017/2/9.
  */
 public class TCPSocket {
-    Socket client = null;
-    PrintStream out;
-    BufferedReader input;
+    private Socket client = null;
+    private PrintStream out;
+    private BufferedReader input;
     String echo = "unknown";
-    int retrycount = 0;
+    private int retrycount = 0;
 
-    void socket(final String name, final int port) {
+    void connect(final String name, final int port) {
         echo = "unknown";
         Thread thread = new Thread(new Runnable() {
             @Override

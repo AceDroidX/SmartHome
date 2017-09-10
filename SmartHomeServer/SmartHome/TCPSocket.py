@@ -22,6 +22,8 @@ def tcplink(sock, addr):
         print(addr.__str__() + '>' + echo)
         if netcmd[0] == 'verify':
             Security.verify(netcmd[1])
+        elif netcmd[0] == 'isSmartLock':
+            sock.send('SmartLock'.encode('utf-8'))
         elif netcmd[0] == 'setkey':
             if Security.isverify():
                 sock.send(Security.setkey(echo.split(' ')[1]).encode('utf-8'))

@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 final TCPSocket islock = new TCPSocket();
-                islock.socket(ipEdit.getText().toString(), 23333);
+                islock.connect(ipEdit.getText().toString(), 23333);
                 islock.send("isSmartLock");
                 if ("SmartLock".equals(islock.recv(10))) {
                     Toast.makeText(getApplicationContext(), "连接成功",

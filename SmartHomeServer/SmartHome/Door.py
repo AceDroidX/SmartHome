@@ -5,8 +5,8 @@ import pcduino.pwm
 
 # import threading
 
-doorpwmlevel = {'lock': 25, 'unlock': 19}
-doorpwmfreq = 50
+doorpwmlevel = {'lock': 60, 'unlock': 140}
+doorpwmfreq = 520
 
 lockstate = 'lock'  # lock锁 unlock没锁
 
@@ -52,6 +52,7 @@ def door_test1(pindoor, level, freq):
 if __name__ == '__main__':
     while True:
         door_switch(6)
+        time.sleep(5)
 """
 
 

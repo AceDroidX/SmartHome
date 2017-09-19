@@ -27,11 +27,15 @@ public class TCPSocket {
                 Log.i("wxxDeb", "connect " + name + ":" + port);
                 try {
                     client = new Socket(name, port);
+                    Log.d("wxxDeb","connect");
                     client.setSoTimeout(10000);
+                    Log.d("wxxDeb","settimeout");
                     //获取Socket的输出流，用来发送数据到服务端
                     out = new PrintStream(client.getOutputStream());
+                    Log.d("wxxDebug","client.getOutputStream() - "+out);
                     //获取Socket的输入流，用来接收从服务端发送过来的数据
                     input = new BufferedReader(new InputStreamReader(client.getInputStream()));
+                    Log.d("wxxDebug","client.getInputStream() - "+input);
                     while (true) {
                         String temp = input.readLine();
                         if (!"Alive".equals(temp)) {
@@ -67,6 +71,7 @@ public class TCPSocket {
     void send(String str) {
         try {
             out.println(str);
+            Log.d("wxxDebug",str);
         } catch (Exception err) {
             Log.e("wxxDebug", err.toString());
         }
@@ -92,11 +97,13 @@ public class TCPSocket {
             {
                 retrycount++;
                 if (retrycount >= MaxRetrycount) {
+                    Log.d("wxxDebugre1",echo);
                     return echo;
                 }
                 t1.start();
                 t1.join();
             }
+            Log.d("wxxDebugre2",echo);
             return echo;
         }catch (Exception err){
             Log.e("wxxDebug", err.toString());

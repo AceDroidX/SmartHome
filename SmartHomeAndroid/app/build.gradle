@@ -7,7 +7,7 @@ android {
         def appKeyAlias = System.getenv("KEY_ALIAS")
         def appKeyPassword = System.getenv("KEY_PASSWORD")
         wxxKeystore {
-            storeFile appStoreFile
+            storeFile file(appStoreFile)
             storePassword appStorePassword
             keyAlias appKeyAlias
             keyPassword appKeyPassword

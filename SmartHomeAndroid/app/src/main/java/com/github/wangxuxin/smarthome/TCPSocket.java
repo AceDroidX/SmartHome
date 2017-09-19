@@ -32,7 +32,7 @@ public class TCPSocket {
                 try {
                     client = new Socket(name, port);
                     Log.d("wxxDeb", "connect");
-                    client.setSoTimeout(2000);
+                    client.setSoTimeout(10000);
                     Log.d("wxxDeb", "settimeout");
                     //获取Socket的输出流，用来发送数据到服务端
                     out = new PrintStream(client.getOutputStream());
@@ -42,6 +42,7 @@ public class TCPSocket {
                     Log.d("wxxDebug", "client.getInputStream() - " + input);
                     while (true) {
                         String temp = input.readLine();
+                        Log.d("wxxDebugSocket",temp);
                         if (!"Alive".equals(temp)) {
                             echo = temp;
                         }

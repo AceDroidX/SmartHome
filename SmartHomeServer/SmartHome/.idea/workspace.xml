@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de97b3c2-f240-446b-b730-260536f81391" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../SmartHomeAndroid/app/src/main/java/com/github/wangxuxin/smarthome/LockActivity.java" afterPath="$PROJECT_DIR$/../../SmartHomeAndroid/app/src/main/java/com/github/wangxuxin/smarthome/LockActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../SmartHomeAndroid/app/src/main/java/com/github/wangxuxin/smarthome/MainActivity.java" afterPath="$PROJECT_DIR$/../../SmartHomeAndroid/app/src/main/java/com/github/wangxuxin/smarthome/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../SmartHomeAndroid/app/src/main/java/com/github/wangxuxin/smarthome/TCPSocket.java" afterPath="$PROJECT_DIR$/../../SmartHomeAndroid/app/src/main/java/com/github/wangxuxin/smarthome/TCPSocket.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../SmartHomeAndroid/app/src/main/res/layout/addlock_toast.xml" afterPath="$PROJECT_DIR$/../../SmartHomeAndroid/app/src/main/res/layout/addlock_toast.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TCPSocket.py" afterPath="$PROJECT_DIR$/TCPSocket.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -65,8 +60,8 @@
       <file leaf-file-name="TCPSocket.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TCPSocket.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="380">
-              <caret line="26" column="65" lean-forward="true" selection-start-line="26" selection-start-column="65" selection-end-line="26" selection-end-column="65" />
+            <state relative-caret-position="247">
+              <caret line="25" column="34" lean-forward="false" selection-start-line="25" selection-start-column="34" selection-end-line="25" selection-end-column="34" />
               <folding>
                 <element signature="e#28#41#0" expanded="true" />
               </folding>
@@ -124,7 +119,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-1770" />
     <option name="y" value="116" />
     <option name="width" value="1456" />
@@ -263,7 +258,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1448" y="116" width="1456" height="876" extended-state="7" />
+    <frame x="-1448" y="116" width="1456" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17569445" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -684,8 +679,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/TCPSocket.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="26" column="65" lean-forward="true" selection-start-line="26" selection-start-column="65" selection-end-line="26" selection-end-column="65" />
+        <state relative-caret-position="247">
+          <caret line="25" column="34" lean-forward="false" selection-start-line="25" selection-start-column="34" selection-end-line="25" selection-end-column="34" />
           <folding>
             <element signature="e#28#41#0" expanded="true" />
           </folding>

@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".InitActivity">
         </activity>
+        <activity android:name=".LockActivity">
+        </activity>
     </application>
 
 </manifest>

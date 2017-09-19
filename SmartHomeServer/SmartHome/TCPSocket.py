@@ -19,6 +19,8 @@ def tcplink(sock, addr):
         time.sleep(1)
         echo = data.decode('utf-8')
         netcmd = echo.split(' ')
+        if echo == '':
+            break
         print(addr.__str__() + '>' + echo)
         if netcmd[0] == 'verify':
             Security.verify(netcmd[1])

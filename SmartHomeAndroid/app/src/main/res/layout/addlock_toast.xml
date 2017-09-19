@@ -19,7 +19,7 @@
         <EditText
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="40dp" android:id="@+id/ipEdit" android:hint="ip地址"/>
+                android:layout_height="wrap_content" android:id="@+id/ipEdit" android:hint="ip地址"/>
     </LinearLayout>
     <LinearLayout
             android:orientation="horizontal"
@@ -37,7 +37,7 @@
         <EditText
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="40dp" android:id="@+id/passwordEdit" android:hint="功能开发中"/>
+                android:layout_height="wrap_content" android:id="@+id/passwordEdit" android:hint="功能开发中"/>
     </LinearLayout>
     <LinearLayout
             android:orientation="horizontal"

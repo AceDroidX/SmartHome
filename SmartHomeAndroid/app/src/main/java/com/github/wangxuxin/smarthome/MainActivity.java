@@ -46,8 +46,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 final TCPSocket islock = new TCPSocket();
                 islock.connect(ipEdit.getText().toString(), 23333);
-                islock.send("isSmartLock");
-                if ("SmartLock".equals(islock.recv(10))) {
+                islock.send("isSmartLock",1000);
+                if ("SmartLock".equals(islock.recv(1000))) {
                     Toast.makeText(getApplicationContext(), "连接成功",
                             Toast.LENGTH_SHORT).show();
                     //1、打开Preferences，名称为setting，如果存在则打开它，否则创建新的Preferences

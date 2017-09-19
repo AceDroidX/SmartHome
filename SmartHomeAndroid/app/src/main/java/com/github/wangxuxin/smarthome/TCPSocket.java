@@ -7,11 +7,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by a1274 on 2017/2/9.
  */
 public class TCPSocket {
+    boolean maxSEretry = false;
+    boolean maxREretry = false;
     private Socket client = null;
     private PrintStream out;
     private BufferedReader input;
@@ -27,15 +31,15 @@ public class TCPSocket {
                 Log.i("wxxDeb", "connect " + name + ":" + port);
                 try {
                     client = new Socket(name, port);
-                    Log.d("wxxDeb","connect");
-                    client.setSoTimeout(10000);
-                    Log.d("wxxDeb","settimeout");
+                    Log.d("wxxDeb", "connect");
+                    client.setSoTimeout(2000);
+                    Log.d("wxxDeb", "settimeout");
                     //获取Socket的输出流，用来发送数据到服务端
                     out = new PrintStream(client.getOutputStream());
-                    Log.d("wxxDebug","client.getOutputStream() - "+out);
+                    Log.d("wxxDebug", "client.getOutputStream() - " + out);
                     //获取Socket的输入流，用来接收从服务端发送过来的数据
                     input = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                    Log.d("wxxDebug","client.getInputStream() - "+input);
+                    Log.d("wxxDebug", "client.getInputStream() - " + input);
                     while (true) {
                         String temp = input.readLine();
                         if (!"Alive".equals(temp)) {
@@ -55,7 +59,7 @@ public class TCPSocket {
             public void run() {
                 while (true) {
                     try {
-                        send("isAlive");
+                        send("isAlive",1000);
                         Thread.sleep(5000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -68,46 +72,52 @@ public class TCPSocket {
         }
     }
 
-    void send(String str) {
+    void send(String str,int MaxRetryms) {
+        Timer timer = new Timer();// 实例化Timer类
+        timer.schedule(new TimerTask() {
+            public void run() {
+                maxSEretry = true;
+            }
+        }, MaxRetryms);// 这里百毫秒
+        Log.d("wxxDebugSE", String.valueOf(MaxRetryms));
         try {
-            out.println(str);
-            Log.d("wxxDebug",str);
+            while(!maxSEretry){
+                if(out==null){
+                    continue;
+                }
+                out.println(str);
+                Log.d("wxxDebugSE","send "+str);
+                maxSEretry = false;
+                return;
+            }
+            Log.d("wxxDebugSE","time out "+str);
         } catch (Exception err) {
             Log.e("wxxDebug", err.toString());
         }
     }
 
-    String recv(final int MaxRetrycount) {
-        final Thread t1 = new Thread() {
+    String recv(int MaxRetryms) {
+        String tmpecho;
+        Timer timer = new Timer();// 实例化Timer类
+        timer.schedule(new TimerTask() {
             public void run() {
-                int i = 0;
-                while (i < 1) {
-                    try {
-                        Thread.sleep(100);
-                        i++;
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
+                maxREretry = true;
             }
-        };
-        try {
-            retrycount = 0;
-            while ("unknown".equals(echo) && retrycount < MaxRetrycount)
-            {
-                retrycount++;
-                if (retrycount >= MaxRetrycount) {
-                    Log.d("wxxDebugre1",echo);
-                    return echo;
-                }
-                t1.start();
-                t1.join();
+        }, MaxRetryms);// 这里百毫秒
+        Log.d("wxxDebugRE", String.valueOf(MaxRetryms));
+        while(!maxREretry){
+            if("unknown".equals(echo)){
+                continue;
             }
-            Log.d("wxxDebugre2",echo);
-            return echo;
-        }catch (Exception err){
-            Log.e("wxxDebug", err.toString());
-            return err.toString();
+            tmpecho=echo;
+            echo="unknown";
+            maxREretry = false;
+            Log.d("wxxDebugRE", "recv"+tmpecho);
+            return tmpecho;
         }
+        echo="unknown";
+        maxREretry = false;
+        Log.d("wxxDebugRE", "recv "+echo);
+        return echo;
     }
 }

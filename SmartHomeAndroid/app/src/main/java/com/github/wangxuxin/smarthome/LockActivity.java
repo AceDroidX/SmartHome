@@ -42,7 +42,7 @@ public class LockActivity extends AppCompatActivity {
         */
         final TCPSocket lockSocket = new TCPSocket();
         lockSocket.connect(lockip, 23333);
-        lockSocket.send("switch");
+        lockSocket.send("switch",1000);
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 //execute the task
@@ -80,7 +80,7 @@ public class LockActivity extends AppCompatActivity {
         */
         final TCPSocket lockSocket = new TCPSocket();
         lockSocket.connect(lockip, 23333);
-        lockSocket.send("reset");
+        lockSocket.send("reset",1000);
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 //execute the task

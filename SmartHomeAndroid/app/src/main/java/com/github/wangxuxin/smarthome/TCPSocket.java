@@ -35,9 +35,9 @@ public class TCPSocket {
                     client = new Socket();
                     SocketAddress socketAddress = new InetSocketAddress(name, port);
                     client.connect(socketAddress, 500);//连不上的0.5毫秒断掉连接
-                    Log.d("wxxDeb", "connect");
+                    //Log.d("wxxDeb", "connect");
                     client.setSoTimeout(10000);
-                    Log.d("wxxDeb", "settimeout");
+                    //Log.d("wxxDeb", "settimeout");
                     //获取Socket的输出流，用来发送数据到服务端
                     out = new DataOutputStream(client.getOutputStream());
                     Log.d("wxxDebug", "client.getOutputStream() - " + out);
@@ -55,6 +55,7 @@ public class TCPSocket {
     }
 
     void send(final String str, final int MaxRetryms) {
+        maxSEretry=false;
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -82,6 +83,8 @@ public class TCPSocket {
     }
 
     String recv(final int MaxRetryms) {
+        echo="unknown";
+        maxREretry=false;
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {

@@ -3,7 +3,6 @@ package com.github.wangxuxin.smarthome;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
@@ -40,33 +39,32 @@ public class LockActivity extends AppCompatActivity {
         }
         canSendSocket=false;
         */
-        final TCPSocket lockSocket = new TCPSocket();
+        TCPSocket lockSocket = new TCPSocket();
         lockSocket.connect(lockip, 23333);
-        lockSocket.send("switch",1000);
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                //execute the task
-                if ("notInitialize".equals(lockSocket.echo)) {
-                    Toast.makeText(getApplicationContext(), "设备未初始化",
-                            Toast.LENGTH_LONG).show();
-                } else if ("lock".equals(lockSocket.echo)) {
-                    Toast.makeText(getApplicationContext(), "已锁住",
-                            Toast.LENGTH_LONG).show();
-                } else if ("unlock".equals(lockSocket.echo)) {
-                    Toast.makeText(getApplicationContext(), "已开启",
-                            Toast.LENGTH_LONG).show();
-                } else if ("keywrong".equals(lockSocket.echo)) {
-                    Toast.makeText(getApplicationContext(), "密码错误",
-                            Toast.LENGTH_LONG).show();
-                } else if ("unknown".equals(lockSocket.echo)) {
-                    Toast.makeText(getApplicationContext(), "连接超时",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "未知错误",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        }, 500);
+        lockSocket.send("door_switch", 1000);
+        String echo = "unknown";
+        echo = lockSocket.recv(3000);
+        final String finalEcho = echo;
+
+        if ("notInitialize".equals(finalEcho)) {
+            Toast.makeText(getApplicationContext(), "设备未初始化",
+                    Toast.LENGTH_LONG).show();
+        } else if ("lock".equals(finalEcho)) {
+            Toast.makeText(getApplicationContext(), "已锁住",
+                    Toast.LENGTH_LONG).show();
+        } else if ("unlock".equals(finalEcho)) {
+            Toast.makeText(getApplicationContext(), "已开启",
+                    Toast.LENGTH_LONG).show();
+        } else if ("keywrong".equals(finalEcho)) {
+            Toast.makeText(getApplicationContext(), "密码错误",
+                    Toast.LENGTH_LONG).show();
+        } else if ("unknown".equals(finalEcho)) {
+            Toast.makeText(getApplicationContext(), "连接超时",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "未知错误",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void resetButton(View v) {
@@ -78,29 +76,57 @@ public class LockActivity extends AppCompatActivity {
         }
         canSendSocket=false;
         */
-        final TCPSocket lockSocket = new TCPSocket();
+        TCPSocket lockSocket = new TCPSocket();
         lockSocket.connect(lockip, 23333);
-        lockSocket.send("reset",1000);
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                //execute the task
-                if ("notInitialize".equals(lockSocket.echo)) {
-                    Toast.makeText(getApplicationContext(), "设备未初始化",
-                            Toast.LENGTH_LONG).show();
-                } else if ("resetsuccess".equals(lockSocket.echo)) {
-                    Toast.makeText(getApplicationContext(), "重置密码成功",
-                            Toast.LENGTH_LONG).show();
-                } else if ("keywrong".equals(lockSocket.echo)) {
-                    Toast.makeText(getApplicationContext(), "密码错误",
-                            Toast.LENGTH_LONG).show();
-                } else if ("unknown".equals(lockSocket.echo)) {
-                    Toast.makeText(getApplicationContext(), "连接超时",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "未知错误",
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        }, 500);
+        lockSocket.send("reset", 1000);
+        String echo = "unknown";
+        echo = lockSocket.recv(3000);
+        final String finalEcho = echo;
+
+        if ("notInitialize".equals(finalEcho)) {
+            Toast.makeText(getApplicationContext(), "设备未初始化",
+                    Toast.LENGTH_LONG).show();
+        } else if ("resetsuccess".equals(finalEcho)) {
+            Toast.makeText(getApplicationContext(), "重置密码成功",
+                    Toast.LENGTH_LONG).show();
+        } else if ("keywrong".equals(finalEcho)) {
+            Toast.makeText(getApplicationContext(), "密码错误",
+                    Toast.LENGTH_LONG).show();
+        } else if ("unknown".equals(finalEcho)) {
+            Toast.makeText(getApplicationContext(), "连接超时",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "未知错误",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void whiteLightButton(View v) {
+        TCPSocket lockSocket = new TCPSocket();
+        lockSocket.connect(lockip, 23333);
+        lockSocket.send("whiteLight_switch", 1000);
+        String echo = "unknown";
+        echo = lockSocket.recv(3000);
+        final String finalEcho = echo;
+
+        if ("notInitialize".equals(finalEcho)) {
+            Toast.makeText(getApplicationContext(), "设备未初始化",
+                    Toast.LENGTH_LONG).show();
+        } else if ("off".equals(finalEcho)) {
+            Toast.makeText(getApplicationContext(), "已关闭",
+                    Toast.LENGTH_LONG).show();
+        } else if ("on".equals(finalEcho)) {
+            Toast.makeText(getApplicationContext(), "已开启",
+                    Toast.LENGTH_LONG).show();
+        } else if ("keywrong".equals(finalEcho)) {
+            Toast.makeText(getApplicationContext(), "密码错误",
+                    Toast.LENGTH_LONG).show();
+        } else if ("unknown".equals(finalEcho)) {
+            Toast.makeText(getApplicationContext(), "连接超时",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getApplicationContext(), "未知错误",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 }

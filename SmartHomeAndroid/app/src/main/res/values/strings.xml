@@ -12,4 +12,5 @@
     <string name="setkey">设置密码</string>
     <string name="apply">确定</string>
     <string name="setkeyinfo">填10位整数</string>
+    <string name="whiteLight">白灯开关</string>
 </resources>

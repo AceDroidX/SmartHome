@@ -7,6 +7,7 @@ import time
 import Security
 import Door
 import SmartHome
+import Furniture
 
 port = 23333
 thread = 5
@@ -21,22 +22,31 @@ def tcplink(sock, addr):
         netcmd = echo.split(' ')
         if echo == '':
             break
-        print(addr.__str__() + '>' + echo)
+        print('<---' + addr.__str__() + '>' + echo)
         if netcmd[0] == 'verify':
             Security.verify(netcmd[1])
         elif netcmd[0] == 'isSmartLock':
             sock.send('SmartLock\n'.encode('utf-8'))
-            print('send to' + addr.__str__() + '>' + 'SmartLock')
+            print('--->' + addr.__str__() + '>' + 'SmartLock')
         elif netcmd[0] == 'setkey':
             if Security.isverify():
                 sock.send(Security.setkey(echo.split(' ')[1]).encode('utf-8'))
         elif netcmd[0] == 'state':
             if Security.isverify():
                 pass
-        elif netcmd[0] == 'switch':
+        elif netcmd[0] == 'door_switch':
             if Security.isverify():
                 Door.door_switch(SmartHome.pinList['door'])
-                sock.send(Door.lockstate.encode('utf-8'))
+                sock.send((Door.lockstate + '\n').encode('utf-8'))
+                print('--->' + addr.__str__() + '>' + Door.lockstate)
+        elif netcmd[0] == 'whiteLight_switch':
+            if Security.isverify():
+                Furniture.whiteLight_switch(SmartHome.pinList['whiteLight'])
+                sock.send((Furniture.whiteLightState + '\n').encode('utf-8'))
+                print('--->' + addr.__str__() + '>' + Furniture.whiteLightState)
+        elif netcmd[0] == 'test':
+            if Security.isverify():
+                pass
         elif echo == 'exit':
             break
     sock.close()

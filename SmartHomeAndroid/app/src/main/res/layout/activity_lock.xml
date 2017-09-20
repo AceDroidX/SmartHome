@@ -18,7 +18,14 @@
             android:layout_centerHorizontal="true" android:id="@+id/switchButton" android:onClick="switchButton"/>
     <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:layout_below="@+id/switchButton"
-            android:layout_alignRight="@+id/switchButton" android:layout_alignEnd="@+id/switchButton" android:id="@+id/resetButton"
-            android:text="@string/reset_button" android:onClick="resetButton"/>
+            android:layout_height="wrap_content"
+            android:id="@+id/resetButton"
+            android:text="@string/reset_button" android:onClick="resetButton"
+            android:layout_below="@+id/whiteLightButton" android:layout_alignStart="@+id/switchButton"/>
+    <Button
+            android:text="@string/whiteLight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/switchButton" android:layout_alignStart="@+id/resetButton"
+            android:id="@+id/whiteLightButton" android:onClick="whiteLightButton"/>
 </RelativeLayout>

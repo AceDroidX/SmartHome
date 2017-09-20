@@ -23,8 +23,10 @@ def stop():
 
 
 def about():
+    print("----------------------------")
     print('https://wangxuxin.github.io')
     print("By wxx")
+    print("----------------------------")
 
 
 def pinSet():
@@ -42,6 +44,7 @@ if __name__ == '__main__':
     if isdebug:
         print("命令行参数:%s" % sys.argv)
     TCPSocket.startServer()
+    about()
     print("SmartHome已启动\n控制台帮助请输入help")
     # ----------------------------
 

@@ -42,7 +42,7 @@ public class TCPSocket {
                     out = new DataOutputStream(client.getOutputStream());
                     Log.d("wxxDebug", "client.getOutputStream() - " + out);
                     //获取Socket的输入流，用来接收从服务端发送过来的数据
-                    input = new BufferedReader (new InputStreamReader(client.getInputStream()));
+                    input = new BufferedReader(new InputStreamReader(client.getInputStream()));
                     Log.d("wxxDebug", "client.getInputStream() - " + input);
                     //client.close();
                 } catch (IOException e) {
@@ -54,17 +54,17 @@ public class TCPSocket {
         thread.start();
     }
 
-    void send(final String str, final int MaxRetryms) {
-        maxSEretry=false;
+    void send(final String str, final int MaxTimeOutms) {
+        maxSEretry = false;
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     while (client == null || out == null) {
                     }
-                    client.setSoTimeout(MaxRetryms);
+                    client.setSoTimeout(MaxTimeOutms);
                     out.writeBytes(str);
-                    maxSEretry=true;
+                    maxSEretry = true;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -74,29 +74,29 @@ public class TCPSocket {
         Timer timer = new Timer();// 实例化Timer类
         timer.schedule(new TimerTask() {
             public void run() {
-                maxSEretry=true;
+                maxSEretry = true;
             }
-        }, MaxRetryms);// 这里百毫秒
-        while (!maxSEretry){
+        }, MaxTimeOutms);// 这里百毫秒
+        while (!maxSEretry) {
         }
-        maxSEretry=false;
+        maxSEretry = false;
     }
 
-    String recv(final int MaxRetryms) {
-        echo="unknown";
-        maxREretry=false;
+    String recv(final int MaxTimeOutms) {
+        echo = "unknown";
+        maxREretry = false;
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     while (client == null || input == null) {
                     }
-                    client.setSoTimeout(MaxRetryms);
-                    echo=input.readLine();
-                    maxREretry=true;
+                    client.setSoTimeout(MaxTimeOutms);
+                    echo = input.readLine();
+                    maxREretry = true;
                 } catch (IOException e) {
                     e.printStackTrace();
-                    echo="unknown";
+                    echo = "unknown";
                 }
             }
         });
@@ -104,13 +104,17 @@ public class TCPSocket {
         Timer timer = new Timer();// 实例化Timer类
         timer.schedule(new TimerTask() {
             public void run() {
-                maxREretry=true;
+                maxREretry = true;
             }
-        }, MaxRetryms);// 这里百毫秒
-        while (!maxREretry){
+        }, MaxTimeOutms);// 这里百毫秒
+        while (!maxREretry) {
         }
-        maxREretry=false;
-        Log.d("wxxDebugRE",echo);
+        maxREretry = false;
+        Log.d("wxxDebugRE", echo);
         return echo;
+    }
+
+    void cmd(String str, int MaxRetryms) {
+
     }
 }

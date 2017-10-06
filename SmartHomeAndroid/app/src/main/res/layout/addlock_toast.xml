@@ -15,11 +15,13 @@
                 android:layout_marginRight="10dp"
                 android:textSize="20sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content" android:id="@+id/textView2"/>
         <EditText
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content" android:id="@+id/ipEdit" android:hint="ip地址"/>
+                android:layout_height="wrap_content" android:id="@+id/ipEdit" android:hint="ip地址"
+                android:inputType="number"
+                android:digits="1234567890." android:maxLines="1" android:maxLength="15"/>
     </LinearLayout>
     <LinearLayout
             android:orientation="horizontal"
@@ -37,7 +39,8 @@
         <EditText
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content" android:id="@+id/passwordEdit" android:hint="功能开发中"/>
+                android:layout_height="wrap_content" android:id="@+id/passwordEdit"
+                android:hint="@string/passwordEditHint" android:inputType="textPassword"/>
     </LinearLayout>
     <LinearLayout
             android:orientation="horizontal"

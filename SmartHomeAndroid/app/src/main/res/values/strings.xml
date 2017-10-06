@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">智能家居锁</string>
-    <string name="locklist">智能家居锁列表</string>
+    <string name="app_name">智能家居系统</string>
+    <string name="locklist">智能家居系统列表</string>
     <string name="addLock">添加智能锁</string>
     <string name="nolock">没有智能锁</string>
     <string name="negative_button">取消</string>
@@ -13,4 +13,5 @@
     <string name="apply">确定</string>
     <string name="setkeyinfo">填10位整数</string>
     <string name="whiteLight">白灯开关</string>
+    <string name="passwordEditHint">空值进入设置模式</string>
 </resources>

@@ -9,8 +9,6 @@ import java.io.InputStreamReader;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by a1274 on 2017/2/9.
@@ -21,11 +19,9 @@ public class TCPSocket {
     private Socket client = null;
     private DataOutputStream out = null;
     private BufferedReader input = null;
-    String echo = "unknown";
     private int retrycount = 0;
 
-    void connect(final String name, final int port) {
-        echo = "unknown";
+    void connect(final String name, final int port, final String type) {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -36,7 +32,7 @@ public class TCPSocket {
                     SocketAddress socketAddress = new InetSocketAddress(name, port);
                     client.connect(socketAddress, 500);//连不上的0.5毫秒断掉连接
                     //Log.d("wxxDeb", "connect");
-                    client.setSoTimeout(10000);
+                    client.setSoTimeout(5000);
                     //Log.d("wxxDeb", "settimeout");
                     //获取Socket的输出流，用来发送数据到服务端
                     out = new DataOutputStream(client.getOutputStream());
@@ -44,6 +40,8 @@ public class TCPSocket {
                     //获取Socket的输入流，用来接收从服务端发送过来的数据
                     input = new BufferedReader(new InputStreamReader(client.getInputStream()));
                     Log.d("wxxDebug", "client.getInputStream() - " + input);
+                    TCPrecv tcprecv=new TCPrecv(out,input,client,type);
+                    tcprecv.recv();
                     //client.close();
                 } catch (IOException e) {
                     Log.e("socket", e.toString());
@@ -54,67 +52,7 @@ public class TCPSocket {
         thread.start();
     }
 
-    void send(final String str, final int MaxTimeOutms) {
-        maxSEretry = false;
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    while (client == null || out == null) {
-                    }
-                    client.setSoTimeout(MaxTimeOutms);
-                    out.writeBytes(str);
-                    maxSEretry = true;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread.start();
-        Timer timer = new Timer();// 实例化Timer类
-        timer.schedule(new TimerTask() {
-            public void run() {
-                maxSEretry = true;
-            }
-        }, MaxTimeOutms);// 这里百毫秒
-        while (!maxSEretry) {
-        }
-        maxSEretry = false;
-    }
-
-    String recv(final int MaxTimeOutms) {
-        echo = "unknown";
-        maxREretry = false;
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    while (client == null || input == null) {
-                    }
-                    client.setSoTimeout(MaxTimeOutms);
-                    echo = input.readLine();
-                    maxREretry = true;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    echo = "unknown";
-                }
-            }
-        });
-        thread.start();
-        Timer timer = new Timer();// 实例化Timer类
-        timer.schedule(new TimerTask() {
-            public void run() {
-                maxREretry = true;
-            }
-        }, MaxTimeOutms);// 这里百毫秒
-        while (!maxREretry) {
-        }
-        maxREretry = false;
-        Log.d("wxxDebugRE", echo);
-        return echo;
-    }
-
-    void cmd(String str, int MaxRetryms) {
+    void cmd(String str, int MaxTimeOutms) {
 
     }
 }

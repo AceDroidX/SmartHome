@@ -1,6 +1,8 @@
 package com.github.wangxuxin.smarthome;
 
+import android.content.Context;
 import android.util.Log;
+import android.view.View;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -20,6 +22,16 @@ public class TCPSocket {
     private DataOutputStream out = null;
     private BufferedReader input = null;
     private int retrycount = 0;
+    Context context = null;
+    View view = null;
+
+    TCPSocket() {
+    }
+
+    TCPSocket(Context c, View v) {
+        context = c;
+        view = v;
+    }
 
     void connect(final String name, final int port, final String type) {
         Thread thread = new Thread(new Runnable() {
@@ -40,8 +52,13 @@ public class TCPSocket {
                     //获取Socket的输入流，用来接收从服务端发送过来的数据
                     input = new BufferedReader(new InputStreamReader(client.getInputStream()));
                     Log.d("wxxDebug", "client.getInputStream() - " + input);
-                    TCPrecv tcprecv=new TCPrecv(out,input,client,type);
-                    tcprecv.recv();
+                    if (context == null) {
+                        TCPrecv tcprecv = new TCPrecv(out, input, client, type);
+                        tcprecv.recv();
+                    } else {
+                        TCPrecv tcprecv = new TCPrecv(out, input, client, type, context, view);
+                        tcprecv.recv();
+                    }
                     //client.close();
                 } catch (IOException e) {
                     Log.e("socket", e.toString());

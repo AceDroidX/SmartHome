@@ -44,81 +44,13 @@ public class MainActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                     return;
                 }
-                final TCPSocket islock = new TCPSocket();
+                final TCPSocket islock = new TCPSocket(getApplicationContext(),new View(getApplicationContext()));
                 islock.connect(ipEdit.getText().toString(), 23333,"verify");
                 islock.cmd("isSmartLock", 1000);
-                if ("SmartLock".equals(islock.recv(3000))) {
-                    Toast.makeText(getApplicationContext(), "连接成功",
-                            Toast.LENGTH_SHORT).show();
-                    //1、打开Preferences，名称为setting，如果存在则打开它，否则创建新的Preferences
-                    SharedPreferences isFirstOpen = getSharedPreferences("lock", 0);
-                    //2、让setting处于编辑状态
-                    SharedPreferences.Editor editor = isFirstOpen.edit();
-                    //3、存放数据
-                    editor.putString("ip", ipEdit.getText().toString());
-                    editor.putString("password", passwordEdit.getText().toString());
-                    //4、完成提交
-                    editor.apply();
-
-                    /*Intent intent = new Intent();
-                    //intent.putExtra("type",type+"/"+l);
-                    intent.setClass(MainActivity.this, LockActivity.class);
-                    startActivity(intent);*/
-                } else if ("unknown".equals(islock.echo)) {
-                    Toast.makeText(getApplicationContext(), "连接超时",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "未知错误",
-                            Toast.LENGTH_SHORT).show();
-                }
 
                 final TCPSocket password = new TCPSocket();
-                password.connect(ipEdit.getText().toString(), 23333,"verify");
-                password.cmd( "verify " + passwordEdit.getText().toString(),1000);
-                if ("notInitialize".equals(password.recv(3000))) {
-                    Toast.makeText(getApplicationContext(), "进入设置模式",
-                            Toast.LENGTH_LONG).show();
-                    //1、打开Preferences，名称为setting，如果存在则打开它，否则创建新的Preferences
-                    SharedPreferences isFirstOpen = getSharedPreferences("lock", 0);
-                    //2、让setting处于编辑状态
-                    SharedPreferences.Editor editor = isFirstOpen.edit();
-                    //3、存放数据
-                    editor.putString("ip", ipEdit.getText().toString());
-                    //4、完成提交
-                    editor.apply();
-
-                    Intent intent = new Intent();
-                    intent.putExtra("type", "1");
-                    intent.setClass(MainActivity.this, LockActivity.class);
-                    startActivity(intent);
-                } else if ("keywrong".equals(islock.echo)) {
-                    Toast.makeText(getApplicationContext(), "密码错误",
-                            Toast.LENGTH_LONG).show();
-                } else if ("keycorrect".equals(islock.echo)) {
-                    Toast.makeText(getApplicationContext(), "连接成功",
-                            Toast.LENGTH_SHORT).show();
-                    //1、打开Preferences，名称为setting，如果存在则打开它，否则创建新的Preferences
-                    SharedPreferences isFirstOpen = getSharedPreferences("lock", 0);
-                    //2、让setting处于编辑状态
-                    SharedPreferences.Editor editor = isFirstOpen.edit();
-                    //3、存放数据
-                    editor.putString("ip", ipEdit.getText().toString());
-                    editor.putString("password", passwordEdit.getText().toString());
-                    //4、完成提交
-                    editor.apply();
-
-                    Intent intent = new Intent();
-                    //intent.putExtra("type",type+"/"+l);
-                    intent.setClass(MainActivity.this, LockActivity.class);
-                    startActivity(intent);
-                } else if ("unknown".equals(islock.echo)) {
-                    Toast.makeText(getApplicationContext(), "连接超时",
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(getApplicationContext(), "未知错误",
-                            Toast.LENGTH_SHORT).show();
-                }
-
+                password.connect(ipEdit.getText().toString(), 23333, "verify");
+                password.cmd("verify " + passwordEdit.getText().toString(), 1000);
             }
         });
 

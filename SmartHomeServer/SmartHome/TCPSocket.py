@@ -23,8 +23,18 @@ def tcplink(sock, addr):
         if echo == '':
             break
         print('<---' + addr.__str__() + '>' + echo)
-        if netcmd[0] == 'verify':
-            Security.verify(netcmd[1])
+
+        #发送别忘了\n
+        if netcmd[0] == 'keepAlive':
+            sock.send('keepAlive\n'.encode('utf-8'))
+            print('--->' + addr.__str__() + '>' + 'keepAlive')
+        elif netcmd[0] == 'verify':
+            if Security.verify(netcmd[1]):
+                sock.send('keycorrect\n'.encode('utf-8'))
+                print('--->' + addr.__str__() + '>' + 'keycorrect')
+            else:
+                sock.send('keywrong\n'.encode('utf-8'))
+                print('--->' + addr.__str__() + '>' + 'keywrong')
         elif netcmd[0] == 'isSmartLock':
             sock.send('SmartLock\n'.encode('utf-8'))
             print('--->' + addr.__str__() + '>' + 'SmartLock')

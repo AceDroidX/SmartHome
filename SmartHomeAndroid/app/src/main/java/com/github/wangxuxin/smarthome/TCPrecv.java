@@ -39,7 +39,7 @@ public class TCPrecv {
         activity = a;
 
         context = a.getApplicationContext();
-        view = a.getCurrentFocus();
+        view = a.getWindow().getDecorView();
     }
 
     void settype() {//TCPtype设置
@@ -67,7 +67,11 @@ public class TCPrecv {
         try {
             while (client.isConnected()) {
                 echo = input.readLine();
-                if ("unknown".equals(echo)) {
+                Log.d("wxxDebug","echo:"+echo);
+                if("keepAlive".equals(echo)){
+                    continue;
+                }
+                else if ("unknown".equals(echo)) {
                     makeToastOnUI("服务端未知错误", Toast.LENGTH_LONG);
                     continue;
                 } else if ("keywrong".equals(echo)) {
@@ -91,10 +95,12 @@ public class TCPrecv {
                 } else {
                     Log.d("wxxDebug", "未知数据类型" + echo);
                 }
+
+                echo="unknown";
             }
         } catch (Exception e) {
             e.printStackTrace();
-            makeToastOnUI("连接错误", Toast.LENGTH_LONG);
+            makeToastOnUI("连接错误:recv", Toast.LENGTH_LONG);
         }
     }
 
@@ -119,7 +125,7 @@ public class TCPrecv {
             Intent intent = new Intent();
             intent.putExtra("type", "1");
             intent.setClass(context, LockActivity.class);
-            context.startActivity(intent);
+            activity.startActivity(intent);
         } else if ("keycorrect".equals(echo)) {
             makeToastOnUI("连接成功", Toast.LENGTH_SHORT);
             //1、打开Preferences，名称为setting，如果存在则打开它，否则创建新的Preferences
@@ -135,7 +141,7 @@ public class TCPrecv {
             Intent intent = new Intent();
             //intent.putExtra("type",type+"/"+l);
             intent.setClass(context, LockActivity.class);
-            context.startActivity(intent);
+            activity.startActivity(intent);
         } else {
             makeToastOnUI("未知错误", Toast.LENGTH_SHORT);
         }

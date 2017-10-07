@@ -46,8 +46,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 final TCPSocket password = new TCPSocket(MainActivity.this);
-                password.connect(ipEdit.getText().toString(), 23333, "verify");
-                password.cmd("verify " + passwordEdit.getText().toString(), 1000);
+                password.cmd(ipEdit.getText().toString(), 23333, "verify","verify " + passwordEdit.getText().toString(), 5000);
             }
         });
 

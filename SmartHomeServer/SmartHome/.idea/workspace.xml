@@ -7,8 +7,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../SmartHomeAndroid/app/src/main/java/com/github/wangxuxin/smarthome/MainActivity.java" afterPath="$PROJECT_DIR$/../../SmartHomeAndroid/app/src/main/java/com/github/wangxuxin/smarthome/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../SmartHomeAndroid/app/src/main/java/com/github/wangxuxin/smarthome/TCPSocket.java" afterPath="$PROJECT_DIR$/../../SmartHomeAndroid/app/src/main/java/com/github/wangxuxin/smarthome/TCPSocket.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../SmartHomeAndroid/app/src/main/java/com/github/wangxuxin/smarthome/TCPrecv.java" afterPath="$PROJECT_DIR$/../../SmartHomeAndroid/app/src/main/java/com/github/wangxuxin/smarthome/TCPrecv.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../../SmartHomeAndroid/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/../../SmartHomeAndroid/app/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Security.py" afterPath="$PROJECT_DIR$/Security.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TCPSocket.py" afterPath="$PROJECT_DIR$/TCPSocket.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -46,7 +47,7 @@
       <file leaf-file-name="Furniture.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Furniture.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="665">
+            <state relative-caret-position="399">
               <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
@@ -58,8 +59,8 @@
       <file leaf-file-name="TCPSocket.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TCPSocket.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="666">
-              <caret line="47" column="35" lean-forward="true" selection-start-line="47" selection-start-column="35" selection-end-line="47" selection-end-column="35" />
+            <state relative-caret-position="438">
+              <caret line="29" column="62" lean-forward="true" selection-start-line="29" selection-start-column="62" selection-end-line="29" selection-end-column="62" />
               <folding>
                 <element signature="e#28#41#0" expanded="true" />
               </folding>
@@ -70,8 +71,8 @@
       <file leaf-file-name="Security.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Security.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
-              <caret line="28" column="10" lean-forward="false" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="10" />
+            <state relative-caret-position="608">
+              <caret line="32" column="20" lean-forward="false" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -106,12 +107,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/Security.py" />
         <option value="$PROJECT_DIR$/pcduino/pwm.py" />
         <option value="$PROJECT_DIR$/Door.py" />
-        <option value="$PROJECT_DIR$/TCPSocket.py" />
         <option value="$PROJECT_DIR$/SmartHome.py" />
         <option value="$PROJECT_DIR$/Furniture.py" />
+        <option value="$PROJECT_DIR$/Security.py" />
+        <option value="$PROJECT_DIR$/TCPSocket.py" />
       </list>
     </option>
   </component>
@@ -740,17 +741,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Security.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="28" column="10" lean-forward="false" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Furniture.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="665">
+        <state relative-caret-position="399">
           <caret line="36" column="0" lean-forward="true" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
@@ -758,10 +751,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Security.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="608">
+          <caret line="32" column="20" lean-forward="false" selection-start-line="32" selection-start-column="20" selection-end-line="32" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/TCPSocket.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="666">
-          <caret line="47" column="35" lean-forward="true" selection-start-line="47" selection-start-column="35" selection-end-line="47" selection-end-column="35" />
+        <state relative-caret-position="438">
+          <caret line="29" column="62" lean-forward="true" selection-start-line="29" selection-start-column="62" selection-end-line="29" selection-end-column="62" />
           <folding>
             <element signature="e#28#41#0" expanded="true" />
           </folding>

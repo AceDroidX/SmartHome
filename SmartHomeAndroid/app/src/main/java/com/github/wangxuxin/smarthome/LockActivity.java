@@ -27,19 +27,16 @@ public class LockActivity extends AppCompatActivity {
 
     public void switchButton(View v) {
         TCPSocket lockSwitchSocket = new TCPSocket(LockActivity.this);
-        lockSwitchSocket.connect(lockip, 23333, "door_switch");
-        lockSwitchSocket.cmd("door_switch", 1000);
+        lockSwitchSocket.cmd(lockip, 23333, "door_switch","door_switch", 1000);
     }
 
     public void resetButton(View v) {
         TCPSocket lockResetSocket = new TCPSocket(LockActivity.this);
-        lockResetSocket.connect(lockip, 23333, "reset");
-        lockResetSocket.cmd("reset", 1000);
+        lockResetSocket.cmd(lockip, 23333, "reset","reset", 1000);
     }
 
     public void whiteLightButton(View v) {
         TCPSocket lockWhiteLightSocket = new TCPSocket(LockActivity.this);
-        lockWhiteLightSocket.connect(lockip, 23333, "whiteLight_switch");
-        lockWhiteLightSocket.cmd("whiteLight_switch", 1000);
+        lockWhiteLightSocket.cmd(lockip, 23333, "whiteLight_switch","whiteLight_switch", 1000);
     }
 }

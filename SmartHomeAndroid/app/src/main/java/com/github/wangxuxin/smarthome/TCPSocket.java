@@ -27,8 +27,14 @@ public class TCPSocket {
     private int retrycount = 0;
     Context context = null;
     Activity activity;
+    TCPrecv tcprecv;
 
-    TCPSocket(String s) {//为了防止空参数
+    TCPSocket(Activity a ,int get) {
+        activity = a;
+        context = a.getApplicationContext();
+        this.client = ((MySocket)activity.getApplication()).getSocket();
+        this.out = ((MySocket)activity.getApplication()).getOut();
+        this.input = ((MySocket)activity.getApplication()).getInput();
     }
 
     TCPSocket(Activity a) {
@@ -37,45 +43,10 @@ public class TCPSocket {
         context = a.getApplicationContext();
     }
 
-    void connect(final String name, final int port, final String type) {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                //客户端请求与本机在20006端口建立TCP连接
-                Log.i("wxxDeb", "connect " + name + ":" + port);
-                try {
-                    client = new Socket();
-                    SocketAddress socketAddress = new InetSocketAddress(name, port);
-                    client.connect(socketAddress, 1000);//连不上的0.5毫秒断掉连接
-                    //Log.d("wxxDeb", "connect");
-                    client.setSoTimeout(5000);
-                    //Log.d("wxxDeb", "settimeout");
-                    //获取Socket的输出流，用来发送数据到服务端
-                    out = new DataOutputStream(client.getOutputStream());
-                    Log.d("wxxDebug", "client.getOutputStream() - " + out);
-                    //获取Socket的输入流，用来接收从服务端发送过来的数据
-                    input = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                    Log.d("wxxDebug", "client.getInputStream() - " + input);
-                    //client.close();
-                } catch (Exception e) {
-                    Log.e("socket", e.toString());
-                    activity.runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(context.getApplicationContext(), "连接错误",
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
-            }
-        });
-        thread.start();
-    }
-
-    void send(String str,int MaxTimeOutms){
+    void send(String str, int MaxTimeOutms) {
         try {
-            if(MaxTimeOutms==0){
-                MaxTimeOutms=client.getSoTimeout();
+            if (MaxTimeOutms == 0) {
+                MaxTimeOutms = client.getSoTimeout();
             }
             client.setSoTimeout(MaxTimeOutms);
             out.writeBytes(str);
@@ -91,25 +62,25 @@ public class TCPSocket {
         }
     }
 
-    void recv(String type){
+    void recv() {
         if (context == null) {
-            TCPrecv tcprecv = new TCPrecv(out, input, client, type);
+            tcprecv = new TCPrecv(out, input, client, this);
             tcprecv.recv();
         } else {
-            TCPrecv tcprecv = new TCPrecv(out, input, client, type, activity);
+            tcprecv = new TCPrecv(out, input, client, this, activity);
             tcprecv.recv();
         }
     }
 
-    void keepAlive(final int MaxTimeOutms){
+    void keepAlive() {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true){
+                while (true) {
                     try {
-                        send("keepAlive",MaxTimeOutms);
-                        sleep(MaxTimeOutms/2);
-                    }catch (Exception e){
+                        send("keepAlive", client.getSoTimeout());
+                        sleep(client.getSoTimeout() / 2);
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -118,7 +89,22 @@ public class TCPSocket {
         thread.start();
     }
 
-    void cmd(final String name, final int port, final String type, final String str, final int MaxTimeOutms) {
+    void cmd(String str) {
+        send(str, 0);
+    }
+
+    void connect(final String name, final int port, final String str, final int MaxTimeOutms) {
+        if(client.isConnected()){
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(context.getApplicationContext(), "socket已连接:socket",
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+            return;
+        }
+
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -137,9 +123,10 @@ public class TCPSocket {
                     //获取Socket的输入流，用来接收从服务端发送过来的数据
                     input = new BufferedReader(new InputStreamReader(client.getInputStream()));
                     Log.d("wxxDebug", "client.getInputStream() - " + input);
-                    keepAlive(MaxTimeOutms);
-                    send(str,MaxTimeOutms);
-                    recv(type);
+                    keepAlive();
+                    send(str, MaxTimeOutms);
+                    ((MySocket) activity.getApplication()).setSocket(client, out, input);
+                    recv();
                     //client.close();
                 } catch (Exception e) {
                     Log.e("socket", e.toString());

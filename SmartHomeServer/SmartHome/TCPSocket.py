@@ -24,17 +24,17 @@ def tcplink(sock, addr):
             break
         print('<---' + addr.__str__() + '>' + echo)
 
-        #发送别忘了\n
+        # 发送别忘了\n
         if netcmd[0] == 'keepAlive':
             sock.send('keepAlive\n'.encode('utf-8'))
             print('--->' + addr.__str__() + '>' + 'keepAlive')
         elif netcmd[0] == 'verify':
             if Security.verify(netcmd[1]):
-                sock.send('keycorrect\n'.encode('utf-8'))
-                print('--->' + addr.__str__() + '>' + 'keycorrect')
+                sock.send('verify keycorrect\n'.encode('utf-8'))
+                print('--->' + addr.__str__() + '>' + 'verify keycorrect')
             else:
-                sock.send('keywrong\n'.encode('utf-8'))
-                print('--->' + addr.__str__() + '>' + 'keywrong')
+                sock.send('verify keywrong\n'.encode('utf-8'))
+                print('--->' + addr.__str__() + '>' + 'verify keywrong')
         elif netcmd[0] == 'isSmartLock':
             sock.send('SmartLock\n'.encode('utf-8'))
             print('--->' + addr.__str__() + '>' + 'SmartLock')
@@ -47,13 +47,13 @@ def tcplink(sock, addr):
         elif netcmd[0] == 'door_switch':
             if Security.isverify():
                 Door.door_switch(SmartHome.pinList['door'])
-                sock.send((Door.lockstate + '\n').encode('utf-8'))
-                print('--->' + addr.__str__() + '>' + Door.lockstate)
+                sock.send(('door_switch' + Door.lockstate + '\n').encode('utf-8'))
+                print('--->' + addr.__str__() + '>' + 'door_switch' + Door.lockstate)
         elif netcmd[0] == 'whiteLight_switch':
             if Security.isverify():
                 Furniture.whiteLight_switch(SmartHome.pinList['whiteLight'])
-                sock.send((Furniture.whiteLightState + '\n').encode('utf-8'))
-                print('--->' + addr.__str__() + '>' + Furniture.whiteLightState)
+                sock.send(('whiteLight_switch' + Furniture.whiteLightState + '\n').encode('utf-8'))
+                print('--->' + addr.__str__() + '>' + 'whiteLight_switch' + Furniture.whiteLightState)
         elif netcmd[0] == 'test':
             if Security.isverify():
                 pass

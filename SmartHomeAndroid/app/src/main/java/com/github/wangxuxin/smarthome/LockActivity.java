@@ -10,6 +10,7 @@ public class LockActivity extends AppCompatActivity {
     private String lockip;
     private String lockpw;
     String number = "";
+    TCPSocket socket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +20,10 @@ public class LockActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final String type = intent.getStringExtra("type");
 
+
+        socket = new TCPSocket(this,1);
+
+
         SharedPreferences locklistSP = getSharedPreferences("lock", 0);
         lockip = locklistSP.getString("ip", null);
 
@@ -26,17 +31,14 @@ public class LockActivity extends AppCompatActivity {
     }
 
     public void switchButton(View v) {
-        TCPSocket lockSwitchSocket = new TCPSocket(LockActivity.this);
-        lockSwitchSocket.cmd(lockip, 23333, "door_switch","door_switch", 1000);
+        socket.send("door_switch", 5000);
     }
 
     public void resetButton(View v) {
-        TCPSocket lockResetSocket = new TCPSocket(LockActivity.this);
-        lockResetSocket.cmd(lockip, 23333, "reset","reset", 1000);
+        socket.send("reset", 5000);
     }
 
     public void whiteLightButton(View v) {
-        TCPSocket lockWhiteLightSocket = new TCPSocket(LockActivity.this);
-        lockWhiteLightSocket.cmd(lockip, 23333, "whiteLight_switch","whiteLight_switch", 1000);
+        socket.send("whiteLight_switch", 5000);
     }
 }

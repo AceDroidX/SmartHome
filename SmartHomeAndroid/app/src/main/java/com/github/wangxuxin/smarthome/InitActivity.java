@@ -32,7 +32,7 @@ public class InitActivity extends AppCompatActivity {
                 }
 
                 final TCPSocket keysetSocket = new TCPSocket(InitActivity.this);
-                keysetSocket.cmd(lockip, 23333, "init","setkey " + keysetEdit.getText().toString(), 1000);
+                keysetSocket.send("setkey " + keysetEdit.getText().toString(), 5000);
             }
         });
     }

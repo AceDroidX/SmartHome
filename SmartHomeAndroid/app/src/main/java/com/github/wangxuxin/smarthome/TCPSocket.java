@@ -48,6 +48,7 @@ public class TCPSocket {
             if (MaxTimeOutms == 0) {
                 MaxTimeOutms = client.getSoTimeout();
             }
+            if(!"keepAlive".equals(str)) Log.d("wxxDebug", "send:" + str);
             client.setSoTimeout(MaxTimeOutms);
             out.writeBytes(str);
         } catch (IOException e) {
@@ -94,7 +95,7 @@ public class TCPSocket {
     }
 
     void connect(final String name, final int port, final String str, final int MaxTimeOutms) {
-        if(client.isConnected()){
+        if(client!=null&&client.isConnected()){
             activity.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

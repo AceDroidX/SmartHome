@@ -19,7 +19,7 @@ public class TCPrecv {
     private DataOutputStream out = null;
     private BufferedReader input = null;
     TCPSocket tcpsocket;
-    String[] cmd = {"unknown","unknown"};
+    String[] cmd = {"unknown", "unknown"};
     Context context = null;
     View view = null;
     Activity activity;
@@ -63,7 +63,7 @@ public class TCPrecv {
         try {
             while (client.isConnected()) {
                 String tmp = input.readLine();
-                Log.d("wxxDebug", "echo:" + tmp);
+                if(!"keepAlive".equals(tmp)) Log.d("wxxDebug", "echo:" + tmp);
                 cmd = tmp.split(" ");
                 if ("keepAlive".equals(cmd[0])) {
                     continue;
@@ -75,6 +75,9 @@ public class TCPrecv {
                     continue;
                 } else if ("verifyerror".equals(cmd[0])) {
                     makeToastOnUI("验证出现未知错误 请重新验证", Toast.LENGTH_LONG);
+                    continue;
+                } else if ("notInitialize".equals(cmd[0])) {
+                    makeToastOnUI("没有初始化", Toast.LENGTH_LONG);
                     continue;
                 }
 
@@ -96,7 +99,7 @@ public class TCPrecv {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            makeToastOnUI("连接错误:recv", Toast.LENGTH_LONG);
+            makeToastOnUI("连接已断开:recv", Toast.LENGTH_LONG);
         }
     }
 
@@ -139,7 +142,7 @@ public class TCPrecv {
             intent.setClass(context, LockActivity.class);
             activity.startActivity(intent);
         } else {
-            makeToastOnUI("未知错误", Toast.LENGTH_SHORT);
+            makeToastOnUI("未知错误", Toast.LENGTH_LONG);
         }
     }
 
@@ -170,11 +173,11 @@ public class TCPrecv {
         if ("notInitialize".equals(cmd[1])) {
             makeToastOnUI("设备未初始化", Toast.LENGTH_LONG);
         } else if ("lock".equals(cmd[1])) {
-            makeToastOnUI("已锁住", Toast.LENGTH_LONG);
+            makeToastOnUI("已锁住", Toast.LENGTH_SHORT);
         } else if ("unlock".equals(cmd[1])) {
-            makeToastOnUI("已开启", Toast.LENGTH_LONG);
+            makeToastOnUI("已开启", Toast.LENGTH_SHORT);
         } else {
-            makeToastOnUI("未知错误", Toast.LENGTH_SHORT);
+            makeToastOnUI("未知错误", Toast.LENGTH_LONG);
         }
     }
 
@@ -184,7 +187,7 @@ public class TCPrecv {
         } else if ("resetsuccess".equals(cmd[1])) {
             makeToastOnUI("重置密码成功", Toast.LENGTH_LONG);
         } else {
-            makeToastOnUI("未知错误", Toast.LENGTH_SHORT);
+            makeToastOnUI("未知错误", Toast.LENGTH_LONG);
         }
     }
 
@@ -192,11 +195,11 @@ public class TCPrecv {
         if ("notInitialize".equals(cmd[1])) {
             makeToastOnUI("设备未初始化", Toast.LENGTH_LONG);
         } else if ("off".equals(cmd[1])) {
-            makeToastOnUI("已关闭", Toast.LENGTH_LONG);
+            makeToastOnUI("已关闭", Toast.LENGTH_SHORT);
         } else if ("on".equals(cmd[1])) {
-            makeToastOnUI("已开启", Toast.LENGTH_LONG);
+            makeToastOnUI("已开启", Toast.LENGTH_SHORT);
         } else {
-            makeToastOnUI("未知错误", Toast.LENGTH_SHORT);
+            makeToastOnUI("未知错误", Toast.LENGTH_LONG);
         }
     }
 }

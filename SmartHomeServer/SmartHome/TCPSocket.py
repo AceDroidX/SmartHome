@@ -17,17 +17,18 @@ def tcplink(sock, addr):
     print('Accept new connection from %s:%s...' % addr)
     while True:
         data = sock.recv(1024)
-        time.sleep(1)
+        time.sleep(0.1)
         echo = data.decode('utf-8')
         netcmd = echo.split(' ')
         if echo == '':
             break
-        print('<---' + addr.__str__() + '>' + echo)
+        if not echo == 'keepAlive':
+            print('<---' + addr.__str__() + '>' + echo)
 
         # 发送别忘了\n
         if netcmd[0] == 'keepAlive':
             sock.send('keepAlive\n'.encode('utf-8'))
-            print('--->' + addr.__str__() + '>' + 'keepAlive')
+            # print('--->' + addr.__str__() + '>' + 'keepAlive')
         elif netcmd[0] == 'verify':
             if Security.verify(netcmd[1]):
                 sock.send('verify keycorrect\n'.encode('utf-8'))
@@ -47,13 +48,13 @@ def tcplink(sock, addr):
         elif netcmd[0] == 'door_switch':
             if Security.isverify():
                 Door.door_switch(SmartHome.pinList['door'])
-                sock.send(('door_switch' + Door.lockstate + '\n').encode('utf-8'))
-                print('--->' + addr.__str__() + '>' + 'door_switch' + Door.lockstate)
+                sock.send(('door_switch ' + Door.lockstate + '\n').encode('utf-8'))
+                print('--->' + addr.__str__() + '>' + 'door_switch ' + Door.lockstate)
         elif netcmd[0] == 'whiteLight_switch':
             if Security.isverify():
                 Furniture.whiteLight_switch(SmartHome.pinList['whiteLight'])
-                sock.send(('whiteLight_switch' + Furniture.whiteLightState + '\n').encode('utf-8'))
-                print('--->' + addr.__str__() + '>' + 'whiteLight_switch' + Furniture.whiteLightState)
+                sock.send(('whiteLight_switch ' + Furniture.whiteLightState + '\n').encode('utf-8'))
+                print('--->' + addr.__str__() + '>' + 'whiteLight_switch ' + Furniture.whiteLightState)
         elif netcmd[0] == 'test':
             if Security.isverify():
                 pass
@@ -75,6 +76,7 @@ def server():
     while True:
         # 接受一个新连接:
         sock, addr = s.accept()
+        s.settimeout(5000)
         # 创建新线程来处理TCP连接:
         t = threading.Thread(target=tcplink, args=(sock, addr))
         t.start()

@@ -37,6 +37,9 @@ def doortest1():
     Door.door_test1(input('pin'), input('level'), input('freq'))
 
 
+def updateTime():
+    os.system('sudo ntpdate -u ntp.api.bz')
+
 # -----------------------------
 
 if __name__ == '__main__':
@@ -45,6 +48,8 @@ if __name__ == '__main__':
         print("命令行参数:%s" % sys.argv)
     TCPSocket.startServer()
     about()
+    timeThread = threading.Thread(target=updateTime())
+    timeThread.start()
     print("SmartHome已启动\n控制台帮助请输入help")
     # ----------------------------
 
@@ -65,6 +70,9 @@ if __name__ == '__main__':
             doortest1()
         elif cmd == 'doorswitch':
             Door.door_switch(pinList['door'])
+        elif cmd=='updatetime':
+            timeThread = threading.Thread(target=updateTime())
+            timeThread.start()
         elif cmd == '':
             pass
         else:

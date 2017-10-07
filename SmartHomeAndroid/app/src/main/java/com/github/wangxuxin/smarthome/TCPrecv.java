@@ -79,6 +79,8 @@ public class TCPrecv {
                 } else if ("notInitialize".equals(cmd[0])) {
                     makeToastOnUI("没有初始化", Toast.LENGTH_LONG);
                     continue;
+                }else if("keywrong".equals(cmd[1])){
+                    makeToastOnUI("密码错误",Toast.LENGTH_LONG);
                 }
 
                 if ("verify".equals(cmd[0])) {

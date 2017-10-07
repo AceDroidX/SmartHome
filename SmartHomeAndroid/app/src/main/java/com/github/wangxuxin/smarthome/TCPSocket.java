@@ -1,8 +1,9 @@
 package com.github.wangxuxin.smarthome;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-import android.view.View;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -23,14 +24,15 @@ public class TCPSocket {
     private BufferedReader input = null;
     private int retrycount = 0;
     Context context = null;
-    View view = null;
+    Activity activity;
 
-    TCPSocket() {
+    TCPSocket(String s) {//为了防止空参数
     }
 
-    TCPSocket(Context c, View v) {
-        context = c;
-        view = v;
+    TCPSocket(Activity a) {
+        activity = a;
+
+        context = a.getApplicationContext();
     }
 
     void connect(final String name, final int port, final String type) {
@@ -42,7 +44,7 @@ public class TCPSocket {
                 try {
                     client = new Socket();
                     SocketAddress socketAddress = new InetSocketAddress(name, port);
-                    client.connect(socketAddress, 500);//连不上的0.5毫秒断掉连接
+                    client.connect(socketAddress, 1000);//连不上的0.5毫秒断掉连接
                     //Log.d("wxxDeb", "connect");
                     client.setSoTimeout(5000);
                     //Log.d("wxxDeb", "settimeout");
@@ -56,13 +58,19 @@ public class TCPSocket {
                         TCPrecv tcprecv = new TCPrecv(out, input, client, type);
                         tcprecv.recv();
                     } else {
-                        TCPrecv tcprecv = new TCPrecv(out, input, client, type, context, view);
+                        TCPrecv tcprecv = new TCPrecv(out, input, client, type, activity);
                         tcprecv.recv();
                     }
                     //client.close();
-                } catch (IOException e) {
+                } catch (Exception e) {
                     Log.e("socket", e.toString());
-                    System.out.println("Time out, No response");
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(context.getApplicationContext(), "连接错误",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
                 }
             }
         });
@@ -70,6 +78,18 @@ public class TCPSocket {
     }
 
     void cmd(String str, int MaxTimeOutms) {
-
+        try {
+            client.setSoTimeout(MaxTimeOutms);
+            out.writeBytes(str);
+        } catch (IOException e) {
+            e.printStackTrace();
+            activity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(context.getApplicationContext(), "发送命令错误",
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 }

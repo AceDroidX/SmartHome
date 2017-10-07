@@ -44,11 +44,8 @@ public class MainActivity extends AppCompatActivity {
                             Toast.LENGTH_LONG).show();
                     return;
                 }
-                final TCPSocket islock = new TCPSocket(getApplicationContext(),new View(getApplicationContext()));
-                islock.connect(ipEdit.getText().toString(), 23333,"verify");
-                islock.cmd("isSmartLock", 1000);
 
-                final TCPSocket password = new TCPSocket();
+                final TCPSocket password = new TCPSocket(MainActivity.this);
                 password.connect(ipEdit.getText().toString(), 23333, "verify");
                 password.cmd("verify " + passwordEdit.getText().toString(), 1000);
             }

@@ -13,5 +13,5 @@
     <string name="apply">确定</string>
     <string name="setkeyinfo">填10位整数</string>
     <string name="whiteLight">白灯开关</string>
-    <string name="passwordEditHint">空值进入设置模式</string>
+    <string name="passwordEditHint">密码</string>
 </resources>

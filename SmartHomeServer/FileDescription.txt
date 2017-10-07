@@ -1,4 +1,4 @@
-SmartHome 服务端 V1.0 Editing
+SmartHome 服务端 V2.0
 文件部署说明 V2.0
 
 文件列表：

@@ -27,4 +27,4 @@ def isverify():
 
 
 def verify(key):
-    return None
+    return True

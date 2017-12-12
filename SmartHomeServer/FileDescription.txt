@@ -1,5 +1,5 @@
 SmartHome 服务端 V2.0
-文件部署说明 V2.0
+文件部署说明 V3.0
 
 文件列表：
 SmartHomeServer-------------#服务端文件夹
@@ -15,6 +15,10 @@ SmartHomeServer-------------#服务端文件夹
 	|-AutoRunPython3.py-----#以python3运行文件夹下的所有python程序
 	|-FileDescription.txt---#文件部署说明
 	|-WorkDescription.txt---#工作方式说明
+	
+环境设置：
+①需要Python3
+②程序的加密系统需要依赖PyCrypto包:pip3 install PyCrypto
 	
 文件修改：
 ①如果需要控制台启动 需要将AutoRunSmartHome.py中第二行路径改为lxterminal -e python3 <主程序的绝对路径>

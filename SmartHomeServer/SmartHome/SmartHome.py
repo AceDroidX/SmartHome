@@ -38,6 +38,7 @@ def doortest1():
 
 
 def updateTime():
+    print('开始对时')
     os.system('sudo ntpdate -u ntp.api.bz')
 
 # -----------------------------

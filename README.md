@@ -6,4 +6,4 @@
 工作方式参考SmartHomeServer/WorkDescription.txt文件
 
 客户端Android(Java语言)
-AndroidApp发布版本：https://github.com/wangxuxin/SmartHome/releases
+AndroidApp发布版本：https://github.com/AceDroidX/SmartHome/releases

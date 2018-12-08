@@ -2,24 +2,27 @@ import time
 
 import pcduino.gpio
 import pcduino.pwm
+from SmartHome import pinList
 
 # import threading
 
-doorpwmlevel = {'lock': 60, 'unlock': 140}
-doorpwmfreq = 520
+doorpwmlevel = {'lock': 3, 'unlock': 5}
+doorpwmfreq = 50
 
 lockstate = 'lock'  # lock锁 unlock没锁
 
-
-def door_switch(pindoor):
+def doorSwitch():
     global lockstate
     if lockstate == 'lock':
-        door_open(pindoor)
+        door_open(pinList['door'])
+        return 'on'
     elif lockstate == 'unlock':
-        door_close(pindoor)
+        door_close(pinList['door'])
+        return 'off'
     else:
-        door_close(pindoor)
+        door_close(pinList['door'])
         print('内存被非法更改 已重置')
+        return 'error-door'
 
 
 def door_open(pindoor):
@@ -29,7 +32,7 @@ def door_open(pindoor):
     pcduino.pwm_enable(pindoor)
     time.sleep(1)
     pcduino.pwm_disable(pindoor)
-    print('door on')
+    #print('door on')
 
 
 def door_close(pindoor):
@@ -39,7 +42,7 @@ def door_close(pindoor):
     pcduino.pwm_enable(pindoor)
     time.sleep(1)
     pcduino.pwm_disable(pindoor)
-    print('door off')
+    #print('door off')
 
 
 def door_test1(pindoor, level, freq):
@@ -51,7 +54,7 @@ def door_test1(pindoor, level, freq):
 
 if __name__ == '__main__':
     while True:
-        door_switch(6)
+        #door_switch(6)
         time.sleep(5)
 """
 

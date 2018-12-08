@@ -6,8 +6,9 @@ import threading
 
 import os
 
+#import TCPSocket
+import HttpServer
 import Door
-import TCPSocket
 
 isdebug = True
 pinList = {'bigLight': 3, 'fanB': 5, 'door': 6, 'whiteLight': 7,
@@ -24,8 +25,8 @@ def stop():
 
 def about():
     print("----------------------------")
-    print('https://wangxuxin.github.io')
-    print("By wxx")
+    print('https://AceDroidX.github.io/?f=sh')
+    print("By AceDroidX")
     print("----------------------------")
 
 
@@ -43,7 +44,8 @@ if __name__ == '__main__':
     # setup
     if isdebug:
         print("命令行参数:%s" % sys.argv)
-    TCPSocket.startServer()
+    #TCPSocket.startServer()
+    HttpServer.start()
     about()
     print("SmartHome已启动\n控制台帮助请输入help")
     # ----------------------------

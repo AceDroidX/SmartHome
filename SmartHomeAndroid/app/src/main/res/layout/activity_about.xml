@@ -22,11 +22,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="By wxx"
+            android:text="By AceDroidX"
             android:id="@+id/textView_copyright"
             android:layout_below="@+id/textView_version" android:layout_centerHorizontal="true"/>
     <TextView
-            android:text="https://wangxuxin.github.io"
+            android:text="https://acedroidx.github.io/?a=null"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView_website"
